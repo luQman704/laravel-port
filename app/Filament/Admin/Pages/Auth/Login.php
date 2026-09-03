@@ -3,8 +3,12 @@
 namespace App\Filament\Admin\Pages\Auth;
 
 use Filament\Pages\Auth\Login as BaseLogin;
+use Illuminate\Contracts\View\View;
 
 class Login extends BaseLogin
 {
-    protected static string $view = 'filament.admin.auth.login';
+    public function render(): View
+    {
+        return view('filament.admin.auth.login', ['livewire' => $this]);
+    }
 }
