@@ -1,0 +1,205 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PPSA Design System
+
+   PALETTE — 6 named colors, each tied to the subject matter:
+
+   Sector    #16a34a  Green on a timing display = personal best. Brand anchor.
+   Pitlane   #0D1F35  Deep navy-charcoal of a lit pit lane at night. Not black.
+   Grid      #F6F7F5  Warm off-white of freshly painted grid squares on tarmac.
+   Titanium  #C8973A  Raw titanium hardware, Brembo Sport gold calipers. Prestige.
+   Alloy     #6E7F96  Bead-blasted machined aluminum. UI neutrals, borders.
+   Asphalt   #E4E8E9  Clean track surface. Alternating section backgrounds.
+
+   TYPEFACES — two, chosen deliberately:
+
+   Barlow Condensed  Display, headings, UI, labels. Referencing California highway
+                     signage and period race car lettering. Condensed form fits
+                     more product name per line — exactly what spec sheets demand.
+
+   JetBrains Mono    Part numbers, prices, stock figures. Fixed-width makes
+                     alphanumeric codes (dfc830-80065L) scannable at a glance.
+
+   TYPE SCALE:
+
+   display   800  56px  tracking -0.02em  lh 1.0
+   h1        700  36px  tracking -0.015em lh 1.05
+   h2        700  26px  tracking -0.01em  lh 1.1
+   h3        600  18px  tracking 0        lh 1.2
+   body      400  16px  tracking 0.01em   lh 1.65
+   small     400  14px  tracking 0.01em   lh 1.5
+   label     600  11px  tracking 0.12em   lh 1    UPPERCASE
+   part-no   Mono 400  13px  tracking 0   lh 1.4
+   price     Mono 600  18px  tracking -0.02em lh 1.0
+──────────────────────────────────────────────────────────────────────────── */
+
+@theme {
+    /* ── Typefaces ─────────────────────────────────────────────────────────── */
+    /* Display/headings — Space Grotesk, modern geometric sans */
+    --font-sans:    'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    /* Body copy — Inter, highly readable at small sizes */
+    --font-body:    'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+    /* ── Palette ───────────────────────────────────────────────────────────── */
+
+    /* Sector Green — primary brand, kept from PS theme */
+    --color-sector-50:   #f0fdf4;
+    --color-sector-100:  #dcfce7;
+    --color-sector-200:  #bbf7d0;
+    --color-sector-300:  #86efac;
+    --color-sector-400:  #4ade80;
+    --color-sector-500:  #22c55e;
+    --color-sector-600:  #16a34a;
+    --color-sector-700:  #15803d;
+    --color-sector-800:  #166534;
+    --color-sector-900:  #14532d;
+
+    /* Kept as "brand-*" alias so existing classes still work */
+    --color-brand-50:    #f0fdf4;
+    --color-brand-100:   #dcfce7;
+    --color-brand-200:   #bbf7d0;
+    --color-brand-300:   #86efac;
+    --color-brand-400:   #4ade80;
+    --color-brand-500:   #22c55e;
+    --color-brand-600:   #16a34a;
+    --color-brand-700:   #15803d;
+    --color-brand-800:   #166534;
+    --color-brand-900:   #14532d;
+
+    /* Pitlane — primary text, dark elements */
+    --color-pitlane:     #0D1F35;
+    --color-pitlane-80:  #243a55;
+    --color-pitlane-60:  #3d5577;
+    --color-pitlane-30:  #8ca3bc;
+    --color-pitlane-10:  #e8edf3;
+
+    /* Grid — page background */
+    --color-grid:        #F6F7F5;
+    --color-grid-warm:   #EEEFE9;
+
+    /* Titanium — premium accent */
+    --color-titanium:    #C8973A;
+    --color-titanium-light: #F5E8CE;
+    --color-titanium-dark:  #9A7020;
+
+    /* Alloy — UI neutrals */
+    --color-alloy:       #6E7F96;
+    --color-alloy-light: #BCC8D8;
+    --color-alloy-faint: #EDF0F4;
+
+    /* Asphalt — section dividers */
+    --color-asphalt:     #E4E8E9;
+    --color-asphalt-dark:#C8CDD0;
+
+    /* Forest — charcoal-green footer */
+    --color-forest:      #1A2B1D;
+
+    /* Cloud — cool light grey for section alternation */
+    --color-cloud:       #F0F1F5;
+
+    /* ── Legacy neutral scale (used internally by Tailwind base) ───────────── */
+    --color-gray-50:  #f9fafb;
+    --color-gray-100: #f3f4f6;
+    --color-gray-200: #e5e7eb;
+    --color-gray-300: #d1d5db;
+    --color-gray-400: #9ca3af;
+    --color-gray-500: #6b7280;
+    --color-gray-600: #4b5563;
+    --color-gray-700: #374151;
+    --color-gray-800: #1f2937;
+    --color-gray-900: #111827;
+
+    /* ── Type scale custom properties ──────────────────────────────────────── */
+    --text-display: 3.5rem;
+    --text-h1:      2.25rem;
+    --text-h2:      1.625rem;
+    --text-h3:      1.125rem;
+    --text-body:    1rem;
+    --text-sm:      0.875rem;
+    --text-label:   0.6875rem;
+    --text-partno:  0.8125rem;
+    --text-price:   1.125rem;
+}
+
+/* ── Base: use body font for all unstyled text ───────────────────────────────── */
+body {
+    font-family: var(--font-body);
+}
+
+/* ── Utility classes for the type scale ─────────────────────────────────────── */
+
+.t-display { font-family: var(--font-sans); font-size: 3.5rem;    font-weight: 700; letter-spacing: -0.03em;  line-height: 1.0; }
+.t-h1      { font-family: var(--font-sans); font-size: 2.25rem;   font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; }
+.t-h2      { font-family: var(--font-sans); font-size: 1.625rem;  font-weight: 600; letter-spacing: -0.02em;  line-height: 1.1; }
+.t-h3      { font-family: var(--font-sans); font-size: 1.125rem;  font-weight: 600; letter-spacing: -0.01em;  line-height: 1.2; }
+.t-body    { font-family: var(--font-body); font-size: 1rem;      font-weight: 400; letter-spacing: 0;        line-height: 1.65; }
+.t-small   { font-family: var(--font-body); font-size: 0.875rem;  font-weight: 400; letter-spacing: 0;        line-height: 1.5; }
+/* Label — no uppercase; use Inter for body-text labels */
+.t-label   { font-family: var(--font-body); font-size: 0.75rem;   font-weight: 500; letter-spacing: 0.01em;   line-height: 1; }
+/* Part number — fixed-width, scannable */
+.t-partno  { font-family: var(--font-mono); font-size: 0.8125rem; font-weight: 400; letter-spacing: 0;        line-height: 1.4; }
+/* Price — fixed-width, prominent */
+.t-price   { font-family: var(--font-mono); font-size: 1.125rem;  font-weight: 600; letter-spacing: -0.02em;  line-height: 1.0; }
+
+/* ── Button system ───────────────────────────────────────────────────────────
+   Two variants: btn-primary (filled green) and btn-ghost (outlined).
+   Both use 4px radius — sharper than Bootstrap/default Tailwind rounded-lg.
+   Primary has a bottom border to give tactile depth, lifts on hover,
+   depresses on active — like a physical switch.
+   ────────────────────────────────────────────────────────────────────────── */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    border-radius: 0.25rem;          /* 4px — sharp, precise, not Bootstrap */
+    transition: background-color 0.13s ease, border-color 0.13s ease,
+                color 0.13s ease, transform 0.1s ease, box-shadow 0.13s ease;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1;
+    border: none;
+}
+.btn:disabled,
+.btn[disabled] { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+
+/* Primary — sector green */
+.btn-primary {
+    background-color: #16a34a;
+    color: #fff;
+}
+.btn-primary:hover {
+    background-color: #15803d;
+    transform: translateY(-1px);
+}
+.btn-primary:active {
+    background-color: #14532d;
+    transform: translateY(1px);
+}
+
+/* Ghost — outlined, fills on hover */
+.btn-ghost {
+    background-color: transparent;
+    color: #3d5577;                   /* pitlane-60 */
+    box-shadow: inset 0 0 0 2px #C8CDD0;  /* asphalt-dark border via inset shadow */
+}
+.btn-ghost:hover {
+    background-color: #f0fdf4;        /* sector-50 */
+    color: #15803d;                   /* sector-700 */
+    box-shadow: inset 0 0 0 2px #16a34a;  /* sector-600 */
+    transform: translateY(-1px);
+}
+.btn-ghost:active {
+    transform: translateY(1px);
+}
