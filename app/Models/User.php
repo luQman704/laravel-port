@@ -13,7 +13,7 @@ use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password', 'title', 'phone', 'birthdate', 'newsletter_subscribed'])]
+#[Fillable(['name', 'email', 'password', 'is_admin', 'title', 'phone', 'birthdate', 'newsletter_subscribed'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable implements FilamentUser
 {
@@ -22,7 +22,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true; // Phase 1: all users can access admin; restrict by role in Phase 3
+        return (bool) $this->is_admin;
     }
 
     public function orders(): HasMany

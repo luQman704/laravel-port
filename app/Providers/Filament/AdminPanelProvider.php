@@ -7,6 +7,7 @@ use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Navigation\NavigationGroup;
+use App\Filament\Admin\Pages\Auth\Login;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -30,7 +31,7 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Green,
             ])
             ->theme(asset('css/filament/admin/theme.css'))
-            ->login()
+            ->login(Login::class)
             ->brandName('PPSA Admin')
             ->sidebarCollapsibleOnDesktop()
             ->breadcrumbs()
