@@ -3,12 +3,29 @@
 namespace App\Filament\Admin\Pages\Auth;
 
 use Filament\Pages\Auth\Login as BaseLogin;
-use Illuminate\Contracts\View\View;
+use Filament\Support\Enums\MaxWidth;
 
 class Login extends BaseLogin
 {
-    public function render(): View
+    protected static string $view = 'filament.admin.auth.login';
+
+    public function getHeading(): string|\Illuminate\Contracts\Support\Htmlable
     {
-        return view('filament.admin.auth.login', ['livewire' => $this]);
+        return '';
+    }
+
+    public function getSubheading(): string|\Illuminate\Contracts\Support\Htmlable|null
+    {
+        return null;
+    }
+
+    public function hasLogo(): bool
+    {
+        return false;
+    }
+
+    public function getMaxContentWidth(): MaxWidth|string|null
+    {
+        return MaxWidth::Full;
     }
 }
