@@ -311,7 +311,7 @@ class CheckoutController extends Controller
 
         // ── Create Yoco checkout session → redirect ──────────────────────
         try {
-            $baseUrl  = config('app.url');
+            $baseUrl  = url('/');
             $yocoData = $this->yoco->createCheckout(
                 $amountCents,
                 "{$baseUrl}/checkout/success?order_id={$order->id}",
