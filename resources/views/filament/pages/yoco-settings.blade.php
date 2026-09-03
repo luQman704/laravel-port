@@ -85,16 +85,6 @@
     <p>The store uses Yoco's <strong>hosted checkout redirect flow</strong> — customers are taken to Yoco's secure page to pay and returned on success or failure. No Yoco JS SDK is required.</p>
 </div>
 
-{{-- ── Save button ────────────────────────────────────────────────────────── --}}
-<div class="flex justify-end py-2">
-    <button type="submit"
-        class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition shadow-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"/>
-        </svg>
-        Save
-    </button>
-</div>
 
 </form>
 </x-filament-panels::page>
