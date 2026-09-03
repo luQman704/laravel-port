@@ -19,12 +19,11 @@ class TopProductsWidget extends BaseWidget
         return $table
             ->query(
                 OrderItem::query()
-                    ->selectRaw('turn14_product_id, product_name, part_number, brand_name, SUM(qty) as total_qty, SUM(line_total_incl) as total_revenue, COUNT(DISTINCT order_id) as order_count')
-                    ->whereHas('order', fn ($q) => $q
-                        ->where('created_at', '>=', Carbon::now()->startOfMonth())
-                        ->whereIn('status', ['paid', 'processing', 'shipped', 'delivered'])
-                    )
-                    ->groupBy('turn14_product_id', 'product_name', 'part_number', 'brand_name')
+                    ->selectRaw('order_items.turn14_product_id, order_items.product_name, order_items.part_number, order_items.brand_name, SUM(order_items.qty) as total_qty, SUM(order_items.line_total_incl) as total_revenue, COUNT(DISTINCT order_items.order_id) as order_count')
+                    ->join('orders', 'orders.id', '=', 'order_items.order_id')
+                    ->where('orders.created_at', '>=', Carbon::now()->startOfMonth())
+                    ->whereIn('orders.status', ['paid', 'processing', 'shipped', 'delivered'])
+                    ->groupBy('order_items.turn14_product_id', 'order_items.product_name', 'order_items.part_number', 'order_items.brand_name')
                     ->orderByDesc('total_revenue')
             )
             ->columns([

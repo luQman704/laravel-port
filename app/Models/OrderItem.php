@@ -12,4 +12,9 @@ class OrderItem extends Model
         'unit_price_incl' => 'float',
         'line_total_incl' => 'float',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
