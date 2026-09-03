@@ -19,7 +19,7 @@ class Turn14StockAlertResource extends Resource
 
     protected static ?string $navigationIcon  = 'heroicon-o-bell';
     protected static ?string $navigationLabel = 'Stock Alerts';
-    protected static ?string $navigationGroup = 'Catalogue';
+    protected static ?string $navigationGroup = 'Fitment & Alerts';
     protected static ?int    $navigationSort  = 10;
 
     public static function getNavigationBadge(): ?string

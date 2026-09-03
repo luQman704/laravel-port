@@ -15,7 +15,7 @@ class Turn14WeightRangeResource extends Resource
     protected static ?string $model = Turn14WeightRange::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-scale';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?string $navigationLabel = 'Shipping Weight Bands';
     protected static ?int    $navigationSort  = 11;
 

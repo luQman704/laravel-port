@@ -17,9 +17,15 @@ function StockRow({ label, qty, esd }) {
                 <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${inStock ? 'bg-sector-50 text-sector-700' : 'bg-asphalt text-pitlane-60'}`}>
                     {inStock ? `${qty} in stock` : 'Out of stock'}
                 </span>
-                {!inStock && esd && (
-                    <span className="t-partno text-alloy">Ships by: {esd}</span>
-                )}
+                {!inStock && esd && (() => {
+                    const d = new Date(esd);
+                    const valid = !isNaN(d.getTime()) && d.getFullYear() > 1900;
+                    return valid ? (
+                        <span className="t-partno text-alloy">
+                            Ships by: {d.toLocaleDateString('en-ZA', { day: 'numeric', month: 'short', year: 'numeric' })}
+                        </span>
+                    ) : null;
+                })()}
             </div>
         </div>
     );

@@ -15,7 +15,7 @@ class Turn14BrandResource extends Resource
     protected static ?string $model = Turn14Brand::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-tag';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?string $navigationLabel = 'Brands';
 
     public static function form(Form $form): Form

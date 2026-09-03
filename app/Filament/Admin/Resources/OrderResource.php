@@ -15,7 +15,7 @@ class OrderResource extends Resource
     protected static ?string $model = Order::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-shopping-bag';
-    protected static ?string $navigationGroup = 'Orders';
+    protected static ?string $navigationGroup = 'Orders & Customers';
     protected static ?string $navigationLabel = 'Orders';
     protected static ?int    $navigationSort  = 1;
 
@@ -107,7 +107,30 @@ class OrderResource extends Resource
                 $statusAction,
                 Tables\Actions\ViewAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\BulkAction::make('markProcessing')
+                        ->label('Mark as Processing')
+                        ->icon('heroicon-o-arrow-path')
+                        ->color('info')
+                        ->requiresConfirmation()
+                        ->action(fn ($records) => $records->each->update(['status' => 'processing'])),
+
+                    Tables\Actions\BulkAction::make('markShipped')
+                        ->label('Mark as Shipped')
+                        ->icon('heroicon-o-truck')
+                        ->color('primary')
+                        ->requiresConfirmation()
+                        ->action(fn ($records) => $records->each->update(['status' => 'shipped'])),
+
+                    Tables\Actions\BulkAction::make('markDelivered')
+                        ->label('Mark as Delivered')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->action(fn ($records) => $records->each->update(['status' => 'delivered'])),
+                ]),
+            ]);
     }
 
     public static function getRelations(): array

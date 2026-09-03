@@ -18,7 +18,7 @@ class Turn14Dashboard extends Page
 {
     protected static ?string $navigationIcon  = 'heroicon-o-chart-bar';
     protected static ?string $navigationLabel = 'Turn14 Dashboard';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?int    $navigationSort  = 0;
     protected static string  $view            = 'filament.pages.turn14-dashboard';
 

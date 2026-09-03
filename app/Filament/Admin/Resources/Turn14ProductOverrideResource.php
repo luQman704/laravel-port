@@ -15,7 +15,7 @@ class Turn14ProductOverrideResource extends Resource
     protected static ?string $model = Turn14ProductOverride::class;
 
     protected static ?string $navigationIcon  = 'heroicon-o-pencil-square';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?string $navigationLabel = 'Product Overrides';
     protected static ?int    $navigationSort  = 12;
 

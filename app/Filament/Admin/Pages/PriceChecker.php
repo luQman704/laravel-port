@@ -13,7 +13,7 @@ class PriceChecker extends Page implements HasForms
     use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-calculator';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?string $navigationLabel = 'Price Checker';
     protected static string $view = 'filament.pages.price-checker';
 

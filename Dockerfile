@@ -43,8 +43,13 @@ COPY . .
 # Finish composer autoload + run scripts
 RUN composer dump-autoload --optimize --no-dev
 
-# Build frontend
-RUN npm run build
+# Build frontend + Filament theme
+RUN npm run build \
+    && npx tailwindcss@3 \
+        --input ./resources/css/filament/admin/theme.css \
+        --output ./public/css/filament/admin/theme.css \
+        --config ./resources/css/filament/admin/tailwind.config.js \
+        --minify
 
 # Laravel caches
 RUN php artisan config:cache \

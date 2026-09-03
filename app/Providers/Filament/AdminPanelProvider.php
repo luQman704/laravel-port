@@ -6,6 +6,7 @@ use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\NavigationGroup;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -28,17 +29,40 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Green,
             ])
+            ->theme(asset('css/filament/admin/theme.css'))
             ->login()
+            ->brandName('PPSA Admin')
+            ->sidebarCollapsibleOnDesktop()
+            ->breadcrumbs()
             ->discoverResources(in: app_path('Filament/Admin/Resources'), for: 'App\\Filament\\Admin\\Resources')
             ->discoverPages(in: app_path('Filament/Admin/Pages'), for: 'App\\Filament\\Admin\\Pages')
             ->pages([
                 Pages\Dashboard::class,
-                \App\Filament\Admin\Pages\PriceChecker::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Admin/Widgets'), for: 'App\\Filament\\Admin\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+            ])
+            ->navigationGroups([
+                NavigationGroup::make('Orders & Customers')
+                    ->icon('heroicon-o-shopping-bag')
+                    ->collapsed(false),
+
+                NavigationGroup::make('Products')
+                    ->icon('heroicon-o-cube')
+                    ->collapsed(false),
+
+                NavigationGroup::make('Homepage')
+                    ->icon('heroicon-o-home')
+                    ->collapsed(true),
+
+                NavigationGroup::make('Fitment & Alerts')
+                    ->icon('heroicon-o-wrench-screwdriver')
+                    ->collapsed(true),
+
+                NavigationGroup::make('Integrations')
+                    ->icon('heroicon-o-puzzle-piece')
+                    ->collapsed(true),
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -13,7 +13,7 @@ class VehicleManager extends Page
 {
     protected static ?string $navigationIcon  = 'heroicon-o-truck';
     protected static ?string $navigationLabel = 'Vehicle Manager';
-    protected static ?string $navigationGroup = 'Catalogue';
+    protected static ?string $navigationGroup = 'Fitment & Alerts';
     protected static ?int    $navigationSort  = 20;
     protected static string  $view            = 'filament.pages.vehicle-manager';
 

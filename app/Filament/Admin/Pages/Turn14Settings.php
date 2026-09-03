@@ -11,7 +11,7 @@ class Turn14Settings extends Page
 {
     protected static ?string $navigationIcon  = 'heroicon-o-adjustments-horizontal';
     protected static ?string $navigationLabel = 'Turn14 Settings';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?int    $navigationSort  = 10;
     protected static string  $view            = 'filament.pages.turn14-settings';
 

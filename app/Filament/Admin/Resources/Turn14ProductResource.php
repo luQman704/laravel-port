@@ -15,7 +15,7 @@ class Turn14ProductResource extends Resource
     protected static ?string $model = Turn14Product::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cube';
-    protected static ?string $navigationGroup = 'Turn14';
+    protected static ?string $navigationGroup = 'Products';
     protected static ?string $navigationLabel = 'Products';
 
     public static function form(Form $form): Form
