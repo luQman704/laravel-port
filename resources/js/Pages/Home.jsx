@@ -684,86 +684,154 @@ export default function Home({
                 </div>
             </section>
 
-            {/* ── Stage system — Build Ladder ──────────────────────────────── */}
+            {/* ── Build Advisor ─────────────────────────────────────────────── */}
             <section ref={stageRef} className="bg-white py-16 border-b border-asphalt overflow-hidden">
                 <div className="max-w-7xl mx-auto px-6">
-                    <div className={`mb-12 transition-all duration-700 ${stageInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                        <h2 className="t-h1 text-pitlane">The build ladder</h2>
-                        <p className="t-body text-pitlane-60 mt-2 max-w-lg">
-                            Tell us where your build is. We show the right parts for your
-                            current stage — not everything in the catalogue, just what moves
-                            the needle next.
-                        </p>
+
+                    {/* Heading */}
+                    <div className={`mb-10 transition-all duration-700 ${stageInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+                        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+                            <div>
+                                <div className="text-xs font-semibold text-sector-600 uppercase tracking-widest mb-2">Build Advisor</div>
+                                <h2 className="t-h1 text-pitlane">Track your build progress</h2>
+                                <p className="t-body text-pitlane-60 mt-2 max-w-lg">
+                                    Select your current stage — we'll show you exactly what parts
+                                    move you to the next level, matched to your vehicle.
+                                </p>
+                            </div>
+                            <a
+                                href={`/advisor?stage=${activeStage}${modelId ? `&vehicle_filter_id=${modelId}` : ''}`}
+                                className="shrink-0 inline-flex items-center gap-2 btn btn-primary px-7 py-3 self-start lg:self-auto"
+                            >
+                                Get my recommendations
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
+
                     <div
                         className={`transition-all duration-700 ${stageInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                        style={{ transitionDelay: '120ms' }}
+                        style={{ transitionDelay: '100ms' }}
                     >
-                        <div className="relative pb-10 mb-10 border-b border-asphalt">
-                            <div className="absolute h-px bg-asphalt-dark" style={{ top: '20px', left: '10%', right: '10%' }} />
-                            <div className="absolute h-px bg-sector-600 transition-all duration-500 ease-out" style={{ top: '20px', left: '10%', width: stageFillWidth }} />
-                            <div className="relative flex">
-                                {STAGES.map(s => {
-                                    const past   = s.n < activeStage;
-                                    const active = s.n === activeStage;
-                                    return (
-                                        <button
-                                            key={s.n}
-                                            onClick={() => setActiveStage(s.n)}
-                                            className="flex-1 flex flex-col items-center gap-3 focus:outline-none group"
-                                        >
-                                            <div className={[
-                                                'w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-sm z-10',
-                                                'transition-all duration-300',
-                                                active
-                                                    ? 'bg-sector-600 text-white scale-[1.25] shadow-lg shadow-sector-600/35 ring-4 ring-sector-100'
-                                                    : past
-                                                    ? 'bg-sector-600 text-white'
-                                                    : 'bg-white border-2 border-asphalt-dark text-alloy-light group-hover:border-sector-400 group-hover:text-pitlane group-hover:scale-105',
-                                            ].join(' ')}>
-                                                {past ? (
-                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
-                                                    </svg>
-                                                ) : (
-                                                    <span>{s.n}</span>
-                                                )}
-                                            </div>
-                                            <div className={`text-xs font-semibold transition-colors ${
-                                                active ? 'text-sector-600' : past ? 'text-pitlane-60' : 'text-alloy group-hover:text-pitlane'
-                                            }`}>{s.label}</div>
-                                        </button>
-                                    );
-                                })}
-                            </div>
-                        </div>
-                        <div key={activeStage} className="animate-stageFade grid md:grid-cols-[1fr_200px] gap-10 items-start">
+                        <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
+
+                            {/* ── Left: Stage infographic ── */}
                             <div>
-                                <div className="font-mono text-xs text-alloy mb-4 tracking-wider">
-                                    {activeStage === 0 ? 'BASELINE' : `STAGE ${activeStage}`} — {STAGES[activeStage].label.toUpperCase()}
+                                {/* Stage ladder */}
+                                <div className="relative pb-8 mb-8 border-b border-asphalt">
+                                    <div className="absolute h-px bg-asphalt-dark" style={{ top: '20px', left: '5%', right: '5%' }} />
+                                    <div className="absolute h-px bg-sector-600 transition-all duration-500 ease-out" style={{ top: '20px', left: '5%', width: stageFillWidth }} />
+                                    <div className="relative flex">
+                                        {STAGES.map(s => {
+                                            const past   = s.n < activeStage;
+                                            const active = s.n === activeStage;
+                                            return (
+                                                <button
+                                                    key={s.n}
+                                                    onClick={() => setActiveStage(s.n)}
+                                                    className="flex-1 flex flex-col items-center gap-3 focus:outline-none group"
+                                                >
+                                                    <div className={[
+                                                        'w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-sm z-10',
+                                                        'transition-all duration-300',
+                                                        active
+                                                            ? 'bg-sector-600 text-white scale-[1.25] shadow-lg shadow-sector-600/35 ring-4 ring-sector-100'
+                                                            : past
+                                                            ? 'bg-sector-600 text-white'
+                                                            : 'bg-white border-2 border-asphalt-dark text-alloy-light group-hover:border-sector-400 group-hover:text-pitlane group-hover:scale-105',
+                                                    ].join(' ')}>
+                                                        {past ? (
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+                                                            </svg>
+                                                        ) : <span>{s.n}</span>}
+                                                    </div>
+                                                    <div className={`text-xs font-semibold transition-colors ${
+                                                        active ? 'text-sector-600' : past ? 'text-pitlane-60' : 'text-alloy group-hover:text-pitlane'
+                                                    }`}>{s.label}</div>
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
-                                <p className="t-h2 text-pitlane mb-3 leading-snug max-w-xl">{STAGES[activeStage].desc}</p>
-                                <p className="text-sm text-pitlane-60 leading-relaxed mb-7 max-w-xl">{STAGES[activeStage].detail}</p>
-                                <div className="flex flex-wrap gap-2">
-                                    {STAGES[activeStage].tags.map(tag => (
-                                        <a
-                                            key={tag}
-                                            href={`/search?q=${encodeURIComponent(tag)}`}
-                                            className="text-sm text-pitlane-60 bg-cloud border border-asphalt-dark px-3 py-1.5 rounded-lg hover:border-sector-400 hover:text-sector-700 hover:bg-sector-50 transition-all"
-                                        >
-                                            {tag}
-                                        </a>
-                                    ))}
+
+                                {/* Stage description */}
+                                <div key={activeStage} className="animate-stageFade">
+                                    <div className="font-mono text-xs text-alloy mb-3 tracking-wider">
+                                        {activeStage === 0 ? 'BASELINE' : `STAGE ${activeStage}`} — {STAGES[activeStage].label.toUpperCase()}
+                                    </div>
+                                    <p className="t-h2 text-pitlane mb-2 leading-snug max-w-xl">{STAGES[activeStage].desc}</p>
+                                    <p className="text-sm text-pitlane-60 leading-relaxed mb-6 max-w-xl">{STAGES[activeStage].detail}</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {STAGES[activeStage].tags.map(tag => (
+                                            <a
+                                                key={tag}
+                                                href={`/search?q=${encodeURIComponent(tag)}`}
+                                                className="text-sm text-pitlane-60 bg-cloud border border-asphalt-dark px-3 py-1.5 rounded-lg hover:border-sector-400 hover:text-sector-700 hover:bg-sector-50 transition-all"
+                                            >
+                                                {tag}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                            <div className="flex flex-col gap-3 pt-10">
-                                <a href="/vehicles" className="btn btn-primary px-6 py-3">
-                                    Shop this stage
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
-                                    </svg>
-                                </a>
-                                <a href="/browse" className="btn btn-ghost px-6 py-3">Browse all parts</a>
+
+                            {/* ── Right: Advisor widget ── */}
+                            <div className="bg-asphalt rounded-2xl p-6 space-y-5 lg:sticky lg:top-6">
+                                <div>
+                                    <div className="text-xs font-bold text-pitlane uppercase tracking-wider mb-0.5">Your build advisor</div>
+                                    <p className="text-xs text-pitlane-60 leading-relaxed">
+                                        {activeStage < 4
+                                            ? <>You're at <strong>{STAGES[activeStage].label}</strong>. Add your vehicle and we'll find your <strong>Stage {activeStage + 1}</strong> upgrade list.</>
+                                            : <>You're at the top — Stage 4. Browse specialist components below.</>
+                                        }
+                                    </p>
+                                </div>
+
+                                {/* Vehicle selectors */}
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-bold text-alloy uppercase tracking-wider">Vehicle (optional)</label>
+                                    <select
+                                        className="w-full bg-white border border-asphalt-dark rounded-lg px-3 py-2 text-sm text-pitlane focus:outline-none focus:ring-2 focus:ring-sector-400"
+                                        value={makeId} onChange={onMakeChange}
+                                    >
+                                        <option value="">Any make</option>
+                                        {makes?.map(m => <option key={m.id_make} value={m.id_make}>{m.make}</option>)}
+                                    </select>
+                                    <select
+                                        className="w-full bg-white border border-asphalt-dark rounded-lg px-3 py-2 text-sm text-pitlane focus:outline-none focus:ring-2 focus:ring-sector-400 disabled:opacity-40"
+                                        value={year} onChange={onYearChange} disabled={!makeId}
+                                    >
+                                        <option value="">Year</option>
+                                        {years.map(y => <option key={y} value={y}>{y}</option>)}
+                                    </select>
+                                    <select
+                                        className="w-full bg-white border border-asphalt-dark rounded-lg px-3 py-2 text-sm text-pitlane focus:outline-none focus:ring-2 focus:ring-sector-400 disabled:opacity-40"
+                                        value={modelId} onChange={e => setModelId(e.target.value)} disabled={!year}
+                                    >
+                                        <option value="">Model</option>
+                                        {models.map(m => <option key={m.id_vehicle_filter} value={m.id_vehicle_filter}>{m.model}</option>)}
+                                    </select>
+                                </div>
+
+                                {activeStage < 4 && (
+                                    <a
+                                        href={`/advisor?stage=${activeStage}${modelId ? `&vehicle_filter_id=${modelId}` : ''}`}
+                                        className="flex items-center justify-center gap-2 w-full bg-sector-600 hover:bg-sector-700 text-white font-bold py-3 rounded-xl text-sm transition-colors"
+                                    >
+                                        Show Stage {activeStage + 1} parts
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
+                                        </svg>
+                                    </a>
+                                )}
+                                {activeStage === 4 && (
+                                    <a href="/browse" className="flex items-center justify-center gap-2 w-full bg-sector-600 hover:bg-sector-700 text-white font-bold py-3 rounded-xl text-sm transition-colors">
+                                        Browse full catalogue →
+                                    </a>
+                                )}
                             </div>
                         </div>
                     </div>

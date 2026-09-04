@@ -6,6 +6,7 @@ use App\Http\Controllers\Shop\CategoryController;
 use App\Http\Controllers\Shop\ProductController;
 use App\Http\Controllers\Shop\SearchController;
 use App\Http\Controllers\Shop\VehicleController;
+use App\Http\Controllers\Shop\AdvisorController;
 use App\Http\Controllers\Shop\EngineController;
 use App\Http\Controllers\Shop\StockAlertController;
 use App\Http\Controllers\Shop\NewsletterController;
@@ -25,6 +26,9 @@ Route::get('/vehicles', [VehicleController::class, 'index']);
 Route::get('/vehicles/{id}', [VehicleController::class, 'show']);
 Route::get('/api/vehicles/years', [VehicleController::class, 'years']);
 Route::get('/api/vehicles/models', [VehicleController::class, 'models']);
+
+// Build Advisor
+Route::get('/advisor', [AdvisorController::class, 'show']);
 
 // Engines
 Route::get('/engines', [EngineController::class, 'index']);
