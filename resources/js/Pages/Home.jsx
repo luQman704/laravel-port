@@ -258,7 +258,7 @@ const BRANDS_FALLBACK = [
     'ACT Clutch', 'Mishimoto', 'KW Suspension', 'Eibach', 'Stoptech',
 ];
 
-const FEATURED_COUNT = 4;
+const CATEGORY_COUNT = 10;
 
 const HERO_IMG = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&q=80';
 
@@ -495,8 +495,7 @@ export default function Home({
         'disabled:opacity-50 disabled:cursor-not-allowed transition-opacity duration-200',
     ].join(' ');
 
-    const featured = categories?.slice(0, FEATURED_COUNT) ?? [];
-    const rest     = categories?.slice(FEATURED_COUNT) ?? [];
+    const topCategories = categories?.slice(0, CATEGORY_COUNT) ?? [];
 
     const stageFillWidth = `${activeStage * 20}%`;
 
@@ -792,7 +791,7 @@ export default function Home({
                 </section>
             )}
 
-            {/* ── Category — featured rows + compact list ───────────────────── */}
+            {/* ── Categories — 5 × 2 grid ───────────────────────────────────── */}
             <section ref={catRef} className="bg-white py-14 border-b border-asphalt">
                 <div className={`max-w-7xl mx-auto px-6 transition-all duration-700 ${catInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
                     <div className="flex items-end justify-between pb-5 border-b border-asphalt mb-0">
@@ -801,43 +800,33 @@ export default function Home({
                             View all {(stats?.total_products ?? 0).toLocaleString()} parts
                         </a>
                     </div>
-                    <div className="divide-y divide-asphalt">
-                        {featured.map((cat, i) => (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 divide-y divide-asphalt sm:divide-y-0">
+                        {topCategories.map((cat, i) => (
                             <a
                                 key={cat.category}
                                 href={`/category/${encodeURIComponent(cat.category)}`}
-                                className={`group flex items-center gap-5 py-5 hover:pl-2 transition-all duration-700 ${catInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}`}
-                                style={{ transitionDelay: catInView ? `${i * 60}ms` : '0ms' }}
+                                className={[
+                                    'group flex items-center gap-5 py-5 hover:pl-2 transition-all duration-700',
+                                    'border-b border-asphalt',
+                                    // right column: add left border on sm+
+                                    i % 2 === 1 ? 'sm:pl-8 sm:border-l' : 'sm:pr-8',
+                                    catInView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4',
+                                ].join(' ')}
+                                style={{ transitionDelay: catInView ? `${i * 50}ms` : '0ms' }}
                             >
                                 <div className="text-alloy group-hover:text-sector-600 transition-colors shrink-0">
-                                    <CategoryIcon name={cat.category} className="w-8 h-8" />
+                                    <CategoryIcon name={cat.category} className="w-7 h-7" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="t-h3 text-pitlane group-hover:text-sector-700 transition-colors">{cat.category}</div>
+                                    <div className="t-h3 text-pitlane group-hover:text-sector-700 transition-colors leading-snug">{cat.category}</div>
+                                    <div className="t-label text-alloy mt-0.5">{Number(cat.count).toLocaleString()} parts</div>
                                 </div>
-                                <div className="t-label text-alloy shrink-0">{Number(cat.count).toLocaleString()} parts</div>
                                 <svg className="w-4 h-4 text-alloy group-hover:text-sector-600 group-hover:translate-x-1 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/>
                                 </svg>
                             </a>
                         ))}
                     </div>
-                    {rest.length > 0 && (
-                        <div className="mt-2 pt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 border-t border-asphalt">
-                            {rest.map(cat => (
-                                <a
-                                    key={cat.category}
-                                    href={`/category/${encodeURIComponent(cat.category)}`}
-                                    className="group flex items-center gap-3 py-3 pr-4 text-pitlane-60 hover:text-sector-600 transition-colors"
-                                >
-                                    <div className="text-alloy group-hover:text-sector-600 transition-colors shrink-0">
-                                        <CategoryIcon name={cat.category} className="w-5 h-5" />
-                                    </div>
-                                    <span className="text-sm font-medium leading-tight">{cat.category}</span>
-                                </a>
-                            ))}
-                        </div>
-                    )}
                 </div>
             </section>
 
